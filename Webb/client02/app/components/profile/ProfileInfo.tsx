@@ -108,7 +108,7 @@ const handlerSubmit = async (e: React.FormEvent) => {
             <Image
               // src={updatedAvatar || user.avatar?.url || avatar || avatarIcon} // Dùng state updatedAvatar nếu có
               src={
-                localAvatar || userData.user.avatar?.url || avatar || avatarIcon
+                localAvatar || user.avatar?.url || avatar || avatarIcon
               } // Dùng state updatedAvatar nếu có
               alt=""
               width={120}

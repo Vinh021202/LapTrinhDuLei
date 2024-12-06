@@ -23,7 +23,7 @@ const CreateCourse = (props: Props) => {
         estimatedPrice: "",
         tags: "",
         level: "",
-        categories: "",
+        category: "",
         demoUrl: "",
         thumbnail: "",
     })
@@ -45,6 +45,8 @@ const CreateCourse = (props: Props) => {
         suggestion: "",
     },
 ]);
+
+console.log("Course clinet", courseInfo);
 
     
  const[courseData, setCourseData] = useState({});
@@ -72,14 +74,15 @@ const CreateCourse = (props: Props) => {
         name: courseInfo.name,
         description: courseInfo.description,
         price: courseInfo.price,
-        estimatedPrice:courseInfo.estimatedPrice,
-        tags:courseInfo.tags,
+        category: courseInfo.category,
+        estimatedPrice: courseInfo.estimatedPrice,
+        tags: courseInfo.tags,
         thumbnail: courseInfo.thumbnail,
         level: courseInfo.level,
         demoUrl: courseInfo.demoUrl,
         totaVideos: courseContentData.length,
         benefits: formattedBenefits,
-        prerequisites:formattedPrerequisites,
+        prerequisites: formattedPrerequisites, // Đảm bảo mảng này có cấu trúc đúng
         courseData: formattedcourseContentData,
        };
        setCourseData(data);

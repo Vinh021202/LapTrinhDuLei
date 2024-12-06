@@ -49,7 +49,7 @@ interface ICourceData extends Document {
  interface ICourse extends Document {
     name:string,
     description:string,
-    categories:string,
+    category:string,
     price:number,
     estimatedPrice?: number,
     thumbnail : object,
@@ -57,7 +57,7 @@ interface ICourceData extends Document {
     level:string,
     demoUrl: string,
     benefits: {title:string}[],
-    prerequisite: {title: string}[],
+    prerequisites: {title: string}[],
     reviews: IReview[],
     courseData : ICourceData[],
     ratings?: number;
@@ -75,10 +75,15 @@ const reviewSchema = new Schema<IReview>({
 },{timestamps:true});
 
 const linkSchema = new Schema<ILink>({
-    title : String,
-    url:String
-});
-
+    title: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    }
+  });
 const commentSchema = new Schema<IComment>({
     user:Object,
     question:String,
@@ -93,7 +98,7 @@ const courseDataSchema = new Schema<ICourceData>({
     videoPlayer:String,
     videoLength:Number,
     description:String,
-    link:[linkSchema],
+    links:[linkSchema],
     questions:[commentSchema],
     suggestion:String
 },{timestamps:true});
@@ -108,7 +113,7 @@ const courseSchema = new Schema<ICourse>({
         type:String,
         required:true,
     }, 
-    categories: {
+    category: {
         type:String,
         required:true,
     },
@@ -142,8 +147,8 @@ const courseSchema = new Schema<ICourse>({
     benefits: [{
         title: String
     }],
-    prerequisite: [{
-        type:String,
+    prerequisites: [{
+        title:String,
     }],
     reviews: [reviewSchema],
     courseData: [courseDataSchema],

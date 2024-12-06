@@ -10,6 +10,8 @@ type Props = {
 };
 
 const CourseCard: FC<Props> = ({ item, isProfile }) => {
+  console.log("CouresCard " , item);
+  
   return (
     <Link
       href={!isProfile ? `/course/${item._id}` : `course-access/${item._id}`}
@@ -28,7 +30,7 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
           {item.name}
         </h1>
         <div className="w-full flex items-center justify-between pt-2">
-          <Ratings rating={item.ratings} />
+          <Ratings rating={item?.ratings} />
           <h5
             className={`text-black dark:text-[#fff] ${
               isProfile && "hidden 800px:inline"
@@ -40,16 +42,16 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
         <div className="w-full flex items-center justify-between pt-3">
           <div className="flex">
             <h3 className="text-black dark:text-[#fff]">
-              {item.price === 0 ? "free" : item.price + "$"}
+              {item?.price === 0 ? "free" : item?.price + "$"}
             </h3>
             <h5 className="pl-3 text-[14px] mt-[-5px] line-through opacity-80 text-black dark:text-[#fff]">
-              {item.estimatedPrice}$
+              {item?.estimatedPrice}$
             </h5>
           </div>
           <div className="flex items-center pb-3">
             <AiOutlineUnorderedList size={20} fill="#fff" />
             <h5 className="pl-2 text-black dark:text-[#fff] ">
-              {item.courseData?.length}Bài giảng
+              {item?.courseData?.length}Bài giảng
             </h5>
           </div>
         </div>

@@ -17,7 +17,8 @@ import axios from "axios";
 export const uploadCourse = CatchAsyncError(async(req:Request , res:Response,next:NextFunction)=> {
     try {
         const data = req.body;
-
+        console.log("data coures", data);
+        
         const thumbnail = data.thumbnail;
         if(thumbnail) {
             const myCloud = await cloudinary.v2.uploader.upload(thumbnail,{
@@ -37,37 +38,47 @@ export const uploadCourse = CatchAsyncError(async(req:Request , res:Response,nex
 })
 
 //edit
-export const editCourse = CatchAsyncError(async(req:Request,res:Response,next:NextFunction)=> {
+export const editCourse = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = req.body;
         const thumbnail = data.thumbnail;
-        if(thumbnail) {
-            await cloudinary.v2.uploader.destroy(thumbnail.public_id);
-            const myCloud = await cloudinary.v2.uploader.upload(thumbnail,{
-                folder:"courses",
+
+        // Kiểm tra nếu thumbnail có giá trị
+        if (thumbnail) {
+            // Kiểm tra nếu public_id tồn tại trong thumbnail trước khi gọi destroy
+            if (thumbnail.public_id) {
+                // Xóa ảnh cũ trên Cloudinary
+                await cloudinary.v2.uploader.destroy(thumbnail.public_id);
+            }
+
+            // Tải ảnh mới lên Cloudinary
+            const myCloud = await cloudinary.v2.uploader.upload(thumbnail, {
+                folder: "courses",
             });
 
+            // Cập nhật thumbnail mới vào dữ liệu
             data.thumbnail = {
-                public_id : myCloud.public_id,
+                public_id: myCloud.public_id,
                 url: myCloud.secure_url
             };
         }
 
         const courseId = req.params.id;
-        const course = await CourseModel.findByIdAndUpdate(courseId,{
-            $set: data},
-            {new : true}
-        );
-        
-        res.status(200).json({
-            success:true,
-            course
-        })
-    } catch (error : any) {
-        return next(new ErrorHandler(error.message,500));
+        // Cập nhật course trong database với dữ liệu mới
+        const course = await CourseModel.findByIdAndUpdate(courseId, {
+            $set: data
+        }, { new: true });
 
+        // Trả về dữ liệu course sau khi cập nhật
+        res.status(200).json({
+            success: true,
+            course
+        });
+    } catch (error: any) {
+        // Xử lý lỗi và trả lại thông báo lỗi nếu có
+        return next(new ErrorHandler(error.message, 500));
     }
-})
+});
 
 
 // get single course ---- with purchasing
@@ -345,7 +356,8 @@ interface IAddReviewData {
 export const addReplyToReview = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { comment, courseId, reviewId } = req.body as IAddReviewData;
-
+        console.log("dữ liệu font end" ,req.body);
+        
         // Kiểm tra xem user đã được xác thực chưa
         if (!req.user) {
             return next(new ErrorHandler("User not authenticated", 401));

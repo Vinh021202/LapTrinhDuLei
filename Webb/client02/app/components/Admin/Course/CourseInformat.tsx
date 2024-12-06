@@ -26,6 +26,10 @@ const CourseInformat: FC<Props> = ({
       setCategories(data.layout.categories);
     }
   }, [data]);
+  
+
+
+
 
 
 
@@ -68,6 +72,8 @@ const CourseInformat: FC<Props> = ({
     }
   };
 
+
+  
 
 
   return (

@@ -27,7 +27,7 @@ const Page = () => {
           description="nền tảng để học sinh học tập và nhận sự trợ giúp từ giáo viên"
           keyword="Lập trình, MERN, Redux, Học máy"
         />
-        <div className="flex h-screen">
+        <div className="flex h-[200vh]">
           <div className="1500px:w-[20%] w-1/5">
             <AdminSidebar />
           </div>

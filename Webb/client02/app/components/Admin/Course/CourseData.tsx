@@ -31,14 +31,18 @@ const CourseData:FC<Props> = ({
         setBenefits([...benefits, {title: ""}]);
     };
 
-    const handlePrerequisitesChange  = (index:number, value:any) => {
-        const updatePrerequisites = [...prerequisites];
-        updatePrerequisites[index].title = value;
-        setPrerequisites(updatePrerequisites);
+    const handlePrerequisitesChange = (index: number, value: any) => {
+        // Tạo bản sao của mảng prerequisites để không thay đổi trực tiếp state
+        const updatedPrerequisites = [...prerequisites];
+        // Cập nhật title của phần tử tại index
+        updatedPrerequisites[index].title = value;
+        // Cập nhật lại state
+        setPrerequisites(updatedPrerequisites);
     };
 
     const handleAddPrerequisites = () => {
-        setPrerequisites([...prerequisites, {title: ""}]);
+        // Thêm một phần tử mới vào prerequisites
+        setPrerequisites([...prerequisites, { title: "" }]);
     };
 
    const  prevButton = () => {

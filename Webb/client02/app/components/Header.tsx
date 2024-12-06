@@ -155,7 +155,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, setRoute, open, route }) => {
                         alt=""
                         height={30}
                         width={30}
-                        className="w-[30px] h-[30px] rounded-full cursor-pointer"
+                        className="w-[30px] h-[30px] rounded-full ml-[20px] cursor-pointer"
                         style={{
                           border:
                             activeItem == 5 ? "2px solid #ffc107" : "none",
@@ -185,11 +185,30 @@ const Header: FC<Props> = ({ activeItem, setOpen, setRoute, open, route }) => {
               >
                 <div className="w-[70%] fixed z-[999999999] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0 ">
                   <NavItems activeItem={activeItem} isMobile={true} />
-                  <HiOutlineUserCircle
-                    size={25}
-                    className="cursor-pointer dark:text-white text-black"
-                    onClick={() => setOpen(true)}
-                  />
+                  {userData ? (
+                    <Link href={"/profile"}>
+                      <Image
+                        src={userData.user.avatar ? userData.user.avatar.url : avatar}
+                        alt=""
+                        height={30}
+                        width={30}
+                        className="w-[30px] h-[30px] rounded-full cursor-pointer"
+                        style={{
+                          border:
+                            activeItem == 5 ? "2px solid #ffc107" : "none",
+                        }}
+                      />
+                    </Link>
+                  ) : (
+                    <HiOutlineUserCircle
+                      size={25}
+                      className="cursor-pointer hidden md:block dark:text-white text-black"
+                      onClick={() => {
+                        // setRoute("Login");
+                        setOpen(true);
+                      }}
+                    />
+                  )}
                   <br />
                   <br />
                   <p className="text-[16px] px-2 pl-5 text-black dark:text-white">

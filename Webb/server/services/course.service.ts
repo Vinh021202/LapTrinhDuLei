@@ -21,6 +21,7 @@ export const createCourse = CatchAsyncError(async(data:any , res:Response , next
             ...course,
             _id: course._id || new mongoose.Types.ObjectId().toString(), // Tạo ID nếu không có
             name: course.name,
+            category:course.category,
             purchased: course.purchased,
             ratings: course.ratings,
             createdAt: new Date(),

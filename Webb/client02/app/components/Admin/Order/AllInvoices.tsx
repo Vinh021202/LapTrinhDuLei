@@ -75,19 +75,7 @@ const AllInvoices = ({ isDashboard }: Props) => {
         ]),
   ];
 
-  const rows: any = [
-    
-   
-    {
-      id: "1234556777655",
-      userName: "vinhtran",
-      userEmail: "vinhtran0212@gmail.com",
-      title: "React JS Course",
-      price: "$500",
-      created_at: "2 days ago",
-    },
-    
-  ];
+  const rows: any = [];
 
   if (orderData) {
     orderData.forEach((item: any) => {

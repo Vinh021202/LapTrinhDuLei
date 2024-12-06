@@ -7,15 +7,16 @@ import Heading from '../Utils/Heading';
 import { Style } from '../style/stylelogin';
 import CourseCard from '../components/Course/CourseCard';
 import { useSearchParams } from 'next/navigation';
-import { useGetUserAllCoursesQuery } from '@/redux/features/courses/coursesApi';
+import { useGetAllCoursesQuery } from '@/redux/features/courses/coursesApi';
 import { useGetHeroDataQuery } from '@/redux/features/layout/layoutApi';
+import Footer from '../components/Footer';
 
 type Props = {};
 
 const Page: React.FC<Props> = () => {
   const searchParams = useSearchParams();
   const search = searchParams?.get('title');
-  const { data, isLoading } = useGetUserAllCoursesQuery(undefined, {});
+  const { data, isLoading } = useGetAllCoursesQuery(undefined, {});
   const { data: categoriesData } = useGetHeroDataQuery('Categories', {});
 
   const [route, setRoute] = useState('Login');
@@ -29,7 +30,7 @@ const Page: React.FC<Props> = () => {
     }
     if (category !== 'All') {
       setCourses(
-        data?.courses.filter((item: any) => item.categories === category)
+        data?.courses.filter((item: any) => item.category === category)
       );
     }
     if (search) {
@@ -108,6 +109,7 @@ const Page: React.FC<Props> = () => {
                 ))}
             </div>
           </div>
+          <Footer />
         </>
       )}
     </div>
